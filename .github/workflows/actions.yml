@@ -1,8 +1,17 @@
 name: Actions Workflow
 
 on:
+ #push:
+
+#to trigger the workflow by events outside the repository or by another repository
+#check this page https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#create-a-repository-dispatch-event
+# Also check postman for post requests   - https://web.postman.co/workspace
+  repository_dispatch:
+    types: [build]
+
+
 # check the wepage https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
-  #push:
+ 
   # schedule:
   #   - cron: "0/5 * * * *"
   #   - cron: "0/6 * * * *" 
