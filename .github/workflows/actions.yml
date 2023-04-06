@@ -22,7 +22,7 @@ jobs:
   run-github-actions:  
     runs-on: ubuntu-latest
     steps:
-    
+
     #to send some info along with the repo dispatch like build(eg- should run these many steps only in prod env)
       - name: payload
         run: echo ${{ github.event.client_payload.env }}
