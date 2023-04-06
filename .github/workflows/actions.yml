@@ -16,8 +16,14 @@ jobs:
           echo "${{ github.token }}"
           # git clone git@github:$GITHUB_REPOSITORY
           # git checkout $GITHUB_SHA
+
+          
       - name: Checkout
+ # below line does the checkout for the repo. can be used instead of git clone. 
+ # actions/checkout is a public repo created by github for making checking out ur repo and managing it easier 
         uses: actions/checkout@v3.5.0
+
+
       - name: List files after checkout
         run: |
           pwd
