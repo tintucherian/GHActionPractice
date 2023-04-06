@@ -3,9 +3,9 @@ name: Actions Workflow
 on:
 # check the wepage https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
   #push:
-  schedule:
-    - cron: "0/5 * * * *"
-    - cron: "0/6 * * * *" 
+  # schedule:
+  #   - cron: "0/5 * * * *"
+  #   - cron: "0/6 * * * *" 
   pull_request:
     types: [closed, assigned, opened, reopened]
 
