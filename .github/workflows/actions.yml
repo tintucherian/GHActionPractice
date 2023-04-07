@@ -1,29 +1,43 @@
 name: Actions Workflow
 
 on:
- #push:
+ push:
+  ##### for specifying the branches or paths or tags when the workflow should work
+  ##### also use branches-ignore, tags-ignore, paths-ignore for the workflow to ignore certain branches or tags or paths(All-ignore)
+  # branches:
+  #   - master
+  #   - "feature/**" ##### matches featur/featA, feature/featB, doesn't match feature/feat/a
+  #   - "!feature/featc"
+  # tags: 
+  #   - v1.*
+  # paths: 
+  #   - "**.js"
+  #   - "!filename.js"
+    # paths-ignore:
+    # - 'docs/**'
 
-#to trigger the workflow by events outside the repository or by another repository
-#check this page https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#create-a-repository-dispatch-event
-# Also check postman for post requests   - https://web.postman.co/workspace
-  repository_dispatch:
-    types: [build]
+#####to trigger the workflow by events outside the repository or by another repository
+#####check this page https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#create-a-repository-dispatch-event
+##### Also check postman for post requests   - https://web.postman.co/workspace
+  # repository_dispatch:
+  #   types: [build]
 
 
-# check the wepage https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
- 
+ #####for scheduling a crontab job
   # schedule:
   #   - cron: "0/5 * * * *"
   #   - cron: "0/6 * * * *" 
-  pull_request:
-    types: [closed, assigned, opened, reopened]
+
+  ##### check the wepage https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+  # pull_request:
+  #   types: [closed, assigned, opened, reopened]
 
 jobs:
   run-github-actions:  
     runs-on: ubuntu-latest
     steps:
 
-    #to send some info along with the repo dispatch like build(eg- should run these many steps only in prod env)
+    #####to send some info along with the repo dispatch like build(eg- should run these many steps only in prod env)
       - name: payload
         run: echo ${{ github.event.client_payload.env }}
 
@@ -40,8 +54,8 @@ jobs:
 
           
       - name: Checkout
- # below line does the checkout for the repo. can be used instead of git clone. 
- # actions/checkout is a public repo created by github for making checking out ur repo and managing it easier 
+ ##### below line does the checkout for the repo. can be used instead of git clone. 
+ ##### actions/checkout is a public repo created by github for making checking out ur repo and managing it easier 
         uses: actions/checkout@v3.5.0
 
 
