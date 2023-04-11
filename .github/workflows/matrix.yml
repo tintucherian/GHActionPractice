@@ -7,9 +7,20 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest] 
         node_version: [6, 8, 10]
+        include:                    ####include - mostly used to pass or set any variables for specific strategy which can be used later
+          - os: ubuntu-latest
+            node_version: 8
+            is_ubuntu_8: "true"
+        exclude:                    ##### to exclude, here exclude to run node on certain os and certain version
+          - os: ubuntu-latest
+            node_version: 6
+          - os: macos-latest
+            node_version: 8
   #node-version:
     #runs-on: ubuntu-latest
     runs-on: ${{ matrix.os }}
+    env: 
+      IS_UBUNTU_8: ${{ matrix.is_ubuntu_8 }} ##### setting env. var from include strategy
     steps: 
       - name: Log node version 
         run: node -v
@@ -18,4 +29,6 @@ jobs:
           #node-version: 6
           node-version: ${{ matrix.node_version }}
       - name: Log node version 
-        run: node -v
+        run: |
+          node -v
+          echo $IS_UBUNTU_8   ##### in above scenario the variable will get set only if os is ubuntu and node version is 8
