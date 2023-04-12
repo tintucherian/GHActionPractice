@@ -1,26 +1,26 @@
-name : Shell Commands
+name : Shell Commands       ###### name of the workflow
 
-on: [push]
+on: [push]                  ####### events - push, pull_request, etc...
 
-jobs:
-  run-shell-command:
+jobs:                       ####### defineing jobs, can have multiple jobs
+  run-shell-command:        ####### 1st job, give amy name for ur job, one job can have multiple task
     runs-on: ubuntu-latest
     steps:
-      - name: echo a string
+      - name: echo a string             ############ 1st task
         run: echo "Hello World!"
-      - name: multi-line script  
+      - name: multi-line script         ########### 2nd task
         run: |
           node -v
           npm -v
 
   run-windows-command:
-    runs-on: windows-latest
-    needs: ["run-shell-command"]
-    steps:
-      - name: Powershell directory
+    runs-on: windows-latest           ######### 2nd job        
+    needs: ["run-shell-command"]      ######### defining dependency on another job
+    steps:                              
+      - name: Powershell directory    ######## 1st task in this job    
         run: Get-Location
         shell: powershell
-      - name: BashLoc
+      - name: BashLoc                 ######## 2nd task in this job
         run: pwd
         shell: bash
       

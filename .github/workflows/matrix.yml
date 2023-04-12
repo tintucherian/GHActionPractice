@@ -1,5 +1,6 @@
 name: Matrix 
-on: push 
+#on: push 
+on: pull_request        ##### to make sure it wont run everytime you push to git
 
 jobs: 
  node-version:

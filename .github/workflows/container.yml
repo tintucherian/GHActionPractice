@@ -1,0 +1,14 @@
+name: Container
+on: [push]
+
+jobs:
+  node_docker:
+    runs-on: ubuntu-latest
+    container:                      ######## define the docker container so that instead of running directly on the ubuntu, it will run ina container inside ubuntu
+                                    ###### get the image from ducker hub (container:docker hub image name: image)
+      image: node:13.5.0-alpine3.10
+    steps:
+      - name: Log node version  
+        run: |
+          node -v
+          cat /etc/os-release
