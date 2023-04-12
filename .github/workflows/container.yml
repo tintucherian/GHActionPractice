@@ -32,3 +32,22 @@ jobs:
         run: 'curl -X POST http://localhost:3001/api/user -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "dwded"}'''
       - name: Get Users
         run: curl http://localhost:3001/api/users
+
+#### creating a job to run containers in individual docker steps
+  docker-steps:    
+    runs-on: ubuntu-latest
+    container:
+      image: node:10.18.0-jessie            ##### specifying a node image for the container
+    steps:
+      - name: log node version
+        run: node -v                        ##### logging the node version
+      - name: Step with docker              ##### another step for specifying another docker image
+        uses: docker://node:12.14.1-alpine3.10    ##### this overwrites the previous doc. image specified for the container
+        with:
+          entrypoint: "/bin/echo"            ##### specifying some commands to be run on start of the docker container
+          args: "Hello World"                ##### argument to be passed like th CMD
+      - name: Log node version               ##### another individual doc. step
+        uses: docker://node:12.14.1-alpine3.10
+        with:
+          entrypoint: /usr/local/bin/node     ##### specifying some commands to be run on start of the docker container
+          args: -v                            ##### here the command is to log the version of the node from the usr/local/bin file where the node gets installed
