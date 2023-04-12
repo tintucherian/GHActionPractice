@@ -1,14 +1,34 @@
 name: Container
 on: [push]
 
-jobs:
-  node_docker:
+# jobs:
+#   node_docker:
+#     runs-on: ubuntu-latest
+#     container:                      ######## define the docker container so that instead of running directly on the ubuntu, it will run ina container inside ubuntu
+#                                     ###### get the image from ducker hub (container:docker hub image name: image)
+#       image: node:13.5.0-alpine3.10
+#     steps:
+#       - name: Log node version  
+#         run: |
+#           node -v
+#           cat /etc/os-release
+
+######### below line of code to run multiple containers,
+  jobs: 
+  node-docker:
     runs-on: ubuntu-latest
-    container:                      ######## define the docker container so that instead of running directly on the ubuntu, it will run ina container inside ubuntu
-                                    ###### get the image from ducker hub (container:docker hub image name: image)
-      image: node:13.5.0-alpine3.10
+    services:                   
+      app:                                #######1st container- for the node-api image from docker hub
+        image: alialaa17/node-api         #### image name
+        ports:
+          - 3001:3000
+      mongo:                              ####### 2nd container for the mongo db from the docker hub
+        image: mongo                      #### image name
+        ports:
+          - "27017:27017"
     steps:
-      - name: Log node version  
-        run: |
-          node -v
-          cat /etc/os-release
+      - name: Post a user
+      ####### below line of code for a post request to create a user 
+        run: 'curl -X POST http://localhost:3001/api/user -H ''Content-Type: application/json'' -d ''{"username": "hello","address": "dwded"}'''
+      - name: Get Users
+        run: curl http://localhost:3001/api/users
