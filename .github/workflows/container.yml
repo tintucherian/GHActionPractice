@@ -51,3 +51,11 @@ jobs:
         with:
           entrypoint: /usr/local/bin/node     ##### specifying some commands to be run on start of the docker container
           args: -v                            ##### here the command is to log the version of the node from the usr/local/bin file where the node gets installed
+
+###### instaed of specifying the scripts in in ENTRYPOINT, run those scripts from a script file, 1st create afile and give permission chmod +x
+      - uses: actions/checkout@v1
+      - name: Run a script
+        uses: docker://node:12.14.1-alpine3.10
+        with:
+          entrypoint: ./script.sh
+          args: "Some string"
